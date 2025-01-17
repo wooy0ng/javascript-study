@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Chapter 14 - 전역 변수의 문제점 &#8212; 스터디</title>
+    <title>Chapter 18 - 함수와 일급 객체 &#8212; 스터디</title>
   
   
   
@@ -57,12 +57,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '공희재/chapter_14';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '공희재/chapter_18';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Chapter 15 - let, const 키워드와 블록 레벨 스코프" href="chapter_15.html" />
-    <link rel="prev" title="Chapter 12 - 함수" href="chapter_12.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,6 +123,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -183,8 +183,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../docs/chapter_17.html">Chapter 17 - 생성자 함수에 의한 객체 생성</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">개인 공간</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="main.html">공희재</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="main.html">공희재</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="chapter_04.html">Chapter 04 - 변수</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_05.html">Chapter 05 - 표현식과 문</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_06.html">Chapter 06 - 데이터 타입</a></li>
@@ -194,7 +194,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter_10.html">Chapter 10 - 객체 리터럴</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_11.html">Chapter 11 - 원시 값과 객체의 비교</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_12.html">Chapter 12 - 함수</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Chapter 14 - 전역 변수의 문제점</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_14.html">Chapter 14 - 전역 변수의 문제점</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_15.html">Chapter 15 - <code class="docutils literal notranslate"><span class="pre">let</span></code>, <code class="docutils literal notranslate"><span class="pre">const</span></code> 키워드와 블록 레벨 스코프</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter_17.html">Chapter 17 - 생성자 함수에 의한 객체 생성</a></li>
 </ul>
@@ -291,7 +291,7 @@
       
       
       
-      <li><a href="https://github.com/ahnlab-220/jupyter-book-template/issues/new?title=Issue%20on%20page%20%2F공희재/chapter_14.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/ahnlab-220/jupyter-book-template/issues/new?title=Issue%20on%20page%20%2F공희재/chapter_18.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -321,7 +321,7 @@
       
       
       
-      <li><a href="../_sources/공희재/chapter_14.md" target="_blank"
+      <li><a href="../_sources/공희재/chapter_18.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -405,7 +405,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Chapter 14 - 전역 변수의 문제점</h1>
+    <h1>Chapter 18 - 함수와 일급 객체</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -415,17 +415,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 변수의 생명 주기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1-1. 지역 변수의 생명 주기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1-2. 전역 변수의 생명 주기</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. 전역 변수의 문제점</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. 전역 변수를 덜 쓰는 법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iife">3-1. IIFE: 즉시 실행 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3-2. 네임스페이스 객체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3-3. 모듈 패턴</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#es6">3-4. ES6 모듈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 일급 객체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2. 함수 객체의 프로퍼티</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments">2-1. <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caller">2-2. <code class="docutils literal notranslate"><span class="pre">caller</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#length">2-3. <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">2-4. <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proto">2-5. <code class="docutils literal notranslate"><span class="pre">__proto__</span></code> 접근자 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prototype">2-6. <code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티</a></li>
 </ul>
 </li>
 </ul>
@@ -439,157 +436,117 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="chapter-14">
-<h1>Chapter 14 - 전역 변수의 문제점<a class="headerlink" href="#chapter-14" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-18">
+<h1>Chapter 18 - 함수와 일급 객체<a class="headerlink" href="#chapter-18" title="Link to this heading">#</a></h1>
 <section id="id1">
-<h2>1. 변수의 생명 주기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h2>1. 일급 객체<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>일급 객체란, 자바스크립트에서 다음 같은 조건을 만족하는 객체를 뜻한다.</p>
+<ol class="arabic simple">
+<li><p>무명의 리터럴로 생성할 수 있다. 즉, <strong>런타임에 생성</strong>이 가능하다.</p></li>
+<li><p><strong>변수나 자료구조</strong>(객체, 배열 등)<strong>에 저장</strong>할 수 있다.</p></li>
+<li><p>함수의 <strong>매개변수에 전달</strong>할 수 있다.</p></li>
+<li><p>함수의 <strong>반환값으로 사용</strong>할 수 있다.</p></li>
+</ol>
+<p><strong>자바스크립트의 함수는</strong> 위의 조건을 모두 만족하므로 <strong>일급 객체</strong>다.<br/>
+즉, 함수는 <strong>값을 사용할 수 있는 곳</strong>(변수 할당문, 객체의 프로퍼티 값, 배열의 요소, 함수 호출의 인수, 함수 반환문)이라면<br/>
+<strong>어디서든지 리터럴로 정의</strong>할 수 있으며, <strong>런타임에 함수 객체로 평가</strong>된다.</p>
+<p>이러한 자바스크립트 함수의 특징은, 함수형 프로그래밍을 가능케 하며 자바스크립트의 장점 중 하나다.</p>
+</section>
 <section id="id2">
-<h3>1-1. 지역 변수의 생명 주기<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>변수에게는 <strong>생명 주기</strong>가 있다.<br>
-그리고 함수 내부에서 선언된 <strong>지역 변수의 생명 주기는 함수의 생명 주기와 같다.</strong></p>
-<p>4장에서 배웠듯 변수 선언은 자바스크립트 엔진에 의해 런타임 이전에 실행된다.<br>
-그런데 엄밀히 말하자면, 이 설명은 전역 변수에 한정된 것이다.<br>
-함수 내부에서 선언한 변수는 <strong>함수가 호출된 직후에야 가장 먼저 실행</strong>된다.<br>
-따라서 아래 그림의 <code class="docutils literal notranslate"><span class="pre">console.log(x)</span></code>는 <code class="docutils literal notranslate"><span class="pre">ReferenceError</span></code>를 발생시키는 것을 볼 수 있다.</p>
-<img width="400px" src="https://github.com/user-attachments/assets/73cd612c-d956-4f04-80cb-c353a73c6566" />
-<p>위 예제를 변형한 다른 예제도 살펴 보자.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;global&#39;</span><span class="p">;</span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w">  </span><span class="c1">// (1): undefined</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;local&#39;</span><span class="p">;</span>
+<h2>2. 함수 객체의 프로퍼티<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>함수는 객체다. 따라서 함수도 프로퍼티를 가진다.<br/>
+함수 객체의 프로퍼티를 하나씩 살펴보자.</p>
+<section id="arguments">
+<h3>2-1. <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 프로퍼티<a class="headerlink" href="#arguments" title="Link to this heading">#</a></h3>
+<p>함수 객체의 <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 프로퍼티 값은, <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체다.<br/>
+<strong><code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체</strong>는 함수 호출 시 전달된 <strong>인수(arguments)들의 정보</strong>를 담은, <strong>순회 가능한(iterable) 유사 배열 객체</strong>이며,<br/>
+함수 내부에서 지역변수처럼 사용한다. 즉, <strong>함수 외부에서는 참조할 수 없다</strong>.</p>
+<p><img alt="image" src="https://github.com/user-attachments/assets/388943be-09ef-42b1-9841-187967fe6595" /></p>
+<p>위 콘솔 사진에서 빨간 네모 표시된 부분이 인수의 정보가 보여지는 부분이다.<br/>
+<code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체는 다음과 같이 매개변수 개수를 확정할 수 없는, <strong>가변 인자 함수를 구현할 때 유용</strong>하다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">sum</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// arguments 객체는 length 프로퍼티가 있는 유사 배열 객체이므로, for문으로 순회할 수 있다.</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">res</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nx">foo</span><span class="p">();</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w">  </span><span class="c1">// (2): global</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">())</span><span class="w">      </span><span class="c1">// 0</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">))</span><span class="w">    </span><span class="c1">// 3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">))</span><span class="w">  </span><span class="c1">// 6</span>
 </pre></div>
 </div>
-<p>(1)에서 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>를 출력하는 이유는<br>
-이미 함수 호출 시 함수 내부에서 가장 먼저 지역 변수 <code class="docutils literal notranslate"><span class="pre">x</span></code>가 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>로 초기화되었기 때문이다.</p>
-<p>이처럼 <strong>호이스팅은 스코프를 단위로 동작</strong>한다.<br>
-호이스팅은 변수 선언이 <strong>스코프의 선두</strong>로 끌어 올려진 것처럼 동작한다는 것을 다시금 기억하자.</p>
+<p><code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체는 앞서 말했듯 실제 배열이 아닌, <strong>array-like object(유사 배열 객체)이다</strong>.<br/>
+유사 배열 객체란, length 프로퍼티를 지니며 for문으로 순회할 수 있는 객체를 말한다.<br/>
+(이터러블이 도입된 ES6부터 <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체는 유사 배열 객체이면서 <strong>이터러블</strong>(이후 34장 ‘이터러블’ 참고)이기도 하다.)</p>
 </section>
-<section id="id3">
-<h3>1-2. 전역 변수의 생명 주기<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<p>함수와 달리 전역 코드는 명시적인 호출 없이, 코드가 로드되자마자 곧바로 해석되고 실행된다.<br>
-종료 시점도 마찬가지로, 전역 코드의 마지막 문이 실행돼 더 이상 실행할 문이 없을 때 종료한다.</p>
-<p>var 키워드로 선언한 전역 변수는 전역 객체(21장 ‘빌트인 객체’에서 배울 예정)의 프로퍼티가 된다.<br>
-이는 <strong><code class="docutils literal notranslate"><span class="pre">var</span></code>로 선언한 전역 변수의 생명주기가 전역 객체의 생명 주기와 일치한다는 것</strong>을 의미한다.</p>
-<p>브라우저 환경을 예로 들면 전역 객체는 <code class="docutils literal notranslate"><span class="pre">window</span></code>이므로<br>
-브라우저 환경에서 <code class="docutils literal notranslate"><span class="pre">var</span></code> 키워드로 선언한 전역 변수는 웹페이지를 닫기 전까지 유효하다.</p>
-<img width="400px" src="https://github.com/user-attachments/assets/7f471445-a6cc-4e44-a81d-d5cab0ba33a2" />
+<section id="caller">
+<h3>2-2. <code class="docutils literal notranslate"><span class="pre">caller</span></code> 프로퍼티<a class="headerlink" href="#caller" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">caller</span></code> 프로퍼티는 ECMAScript 사양에 포함하지 않는 비표준 프로퍼티이므로 생략한다.</p>
 </section>
-</section>
-<section id="id4">
-<h2>2. 전역 변수의 문제점<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<ul>
-<li><p><strong>Implicit Coupling: 암묵적 결합</strong></p>
-<ul class="simple">
-<li><p>전역 변수를 선언하는 것은 모든 코드가 그 전역 변수를 참조하고 변경하는 암묵적 결합을 허용하는 행위이다.</p></li>
-<li><p>변수의 <strong>유효 범위는 크면 클수록 가독성이 감소하고 위험성이 증가</strong>한다.</p></li>
-</ul>
-</li>
-<li><p><strong>긴 생명 주기</strong></p>
-<ul>
-<li><p>전역 변수는 생명 주기가 길다. 따라서 <strong>메모리 자원</strong>도 오랜 시간 소비한다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">var</span></code> 키워드는 중복 선언까지 허용하므로 <strong>의도치 않은 재할당</strong>이 이뤄질 수도 있다.</p></li>
-<li><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<section id="length">
+<h3>2-3. <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티<a class="headerlink" href="#length" title="Link to this heading">#</a></h3>
+<p>함수 객체의 <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티는 다음 예제와 같이 <strong>함수를 정의할 때 선언한 매개변수의 개수</strong>를 가리킨다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="w">  </span><span class="c1">// 0</span>
 
-<span class="c1">// ...</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">bar</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="w">  </span><span class="c1">// 1</span>
 
-<span class="c1">// 변수의 중복 선언. 기존 변수의 값을 재할당한다.</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span><span class="w">  </span><span class="c1">// 100</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">baz</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">y</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="w">  </span><span class="c1">// 2</span>
 </pre></div>
 </div>
-</li>
-</ul>
-</li>
-<li><p><strong>스코프 체인의 종점에 존재(=변수 검색 속도)</strong></p>
-<ul class="simple">
-<li><p>전역 변수는 스코프 체인의 종점에 존재한다. 이는 변수 검색 시 전역 변수가 가장 마지막에 검색된다는 의미다.</p></li>
-<li><p>즉, 전역 변수는 <strong>검색 속도가 가장 느리다.</strong></p></li>
-</ul>
-</li>
-<li><p><strong>네임스페이스 오염</strong></p>
-<ul class="simple">
-<li><p>자바스크립트의 특징은 <strong>파일이 분리되었더라도 하나의 전역 스코프</strong>를 공유한다는 것이다.</p></li>
-<li><p>따라서 다른 파일 내 동일한 이름으로 명명한 전역 변수나, 전역 함수가 있을 경우 예상치 못한 결과를 가져올 수 있다.</p></li>
-</ul>
-</li>
-</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">arguments</span></code> 객체</strong>의 <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티와, <strong>함수 객체</strong>의 <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티는 다른 개념인 걸 반드시 숙지하자.<br/>
+전자는 <strong>arguments(인자)의 개수</strong>를 가리키고, 후자는 <strong>parameters(매개변수)의 개수</strong>를 가리킨다.</p>
 </section>
-<section id="id5">
-<h2>3. 전역 변수를 덜 쓰는 법<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>이렇게 무시무시한 전역 변수는 꼭 필요한 경우가 아니라면 쓰지 않는 게 좋다.<br>
-전역 변수를 남발하지 않도록 최대한 덜 쓰는 법을 알아보자.</p>
-<section id="iife">
-<h3>3-1. IIFE: 즉시 실행 함수<a class="headerlink" href="#iife" title="Link to this heading">#</a></h3>
-<p><strong>모든 코드를 IIFE(즉시 실행 함수)로 감싸면</strong> 모든 변수는 IIFE의 지역 변수가 된다.<br>
-이 방법은 전역 변수를 생성하는 것을 애초에 막아주므로, 라이브러리 코드에서 자주 사용된다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span><span class="w">  </span><span class="c1">// IIFE의 지역 변수</span>
-<span class="w">  </span><span class="c1">// ... 모든 코드...</span>
-<span class="p">}());</span>
+<section id="name">
+<h3>2-4. <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티<a class="headerlink" href="#name" title="Link to this heading">#</a></h3>
+<p>함수 객체의 <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티는 아래 예제처럼 <strong>함수 이름을 나타낸다</strong>. ES6부터 정식 표준이 되었다.<br/>
+주의해야 할 점은, <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티는 <strong>ES5와 ES6에서 동작을 달리한다</strong>는 점이다.<br/>
+ES5에서는 익명 함수 표현식의 <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티의 값이 <strong>빈 문자열</strong>이고, ES6에서는 함수 객체를 가리키는 <strong>식별자</strong>다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// 기명 함수 표현식</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">namedFunc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">namedFunc</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">  </span><span class="c1">// foo</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span><span class="w">  </span><span class="c1">// ReferenceError: foo is not defined</span>
+<span class="c1">// 익명 함수 표현식</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">anonymousFunc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span>
+<span class="c1">// ES5: name 프로퍼티의 값이 빈 문자열이다.</span>
+<span class="c1">// ES6: name 프로퍼티의 값이 함수 객체를 가리키는 식별자다.</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">anonymousFunc</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">  </span><span class="c1">// anonymousFunc</span>
+
+<span class="c1">// 함수 선언문</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">  </span><span class="c1">// bar</span>
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>3-2. 네임스페이스 객체<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>이 방법은 전역에 객체를 생성해 네임스페이스 역할을 부여하는 방식이다.<br>
-생성한 객체에 전역 변수처럼 사용하고 싶은 변수를 프로퍼티로 추가하면 된다.</p>
-<p>이 방식은 네임스페이스를 분리해 식별자 충돌을 방지하는 효과는 있으나,<br>
-네임스페이스 객체 자체가 전역 변수에 할당되는 것은 막을 수 없으므로 사실 그다지 유용하진 않다. (그럼 왜 소개를…?)</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">MYAPP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w">  </span><span class="c1">// 전역 네임스페이스 객체</span>
-
-<span class="nx">MYAPP</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Lee&#39;</span><span class="p">;</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">MYAPP</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span><span class="w">  </span><span class="c1">// Lee</span>
-</pre></div>
-</div>
+<section id="proto">
+<h3>2-5. <code class="docutils literal notranslate"><span class="pre">__proto__</span></code> 접근자 프로퍼티<a class="headerlink" href="#proto" title="Link to this heading">#</a></h3>
+<p>모든 객체는 [[Prototype]]이라는 내부 슬롯을 갖는다. [[Prototype]]은 프로토타입 객체를 가리킨다. (프로토타입에 관한 자세한 내용은 19장 ‘프로토타입’ 참고)<br/>
+<code class="docutils literal notranslate"><span class="pre">__proto__</span></code>는 [[Prototype]] 내부 슬롯이 가리키는 프로토타입 객체에 접근하고자 사용하는 <strong>접근자 프로퍼티</strong>다.</p>
+<p>[[Prototype]] 내부 슬롯에는 직접 접근할 수 없고, <code class="docutils literal notranslate"><span class="pre">__proto__</span></code> 접근자 프로퍼티를 통해 <strong>간접적으로</strong> 프로토타입 객체에 접근할 수 있다.</p>
 </section>
-<section id="id7">
-<h3>3-3. 모듈 패턴<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>모듈 패턴 방식은, 마치 클래스처럼, 변수와 함수를 모아 IIFE(즉시 실행 함수)로 감싸 하나의 모듈을 만드는 방식이다.<br>
-모듈 패턴은 전역 변수의 억제는 물론 캡슐화까지 구현할 수 있다는 점이 특징이다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// private한 변수</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<section id="prototype">
+<h3>2-6. <code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티<a class="headerlink" href="#prototype" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티는 <strong>생성자 함수가 생성할 인스턴스의 프로토타입 객체</strong>를 가리킨다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티는 <strong>constructor만이 소유하는</strong> 특별한 프로퍼티다.<br/>
+따라서 일반 객체와 생성자 함수로 호출할 수 없는 non-constructor에는 <code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티가 없다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// 함수 객체는 prototype 프로퍼티를 갖는다.</span>
+<span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{}).</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;prototype&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// true</span>
 
-<span class="w">  </span><span class="c1">// 외부로 공개할 데이터나 메서드를 객체로 만들어 반환한다.</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">increase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">++</span><span class="nx">num</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">decrease</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">--</span><span class="nx">num</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">};</span>
-<span class="p">}());</span>
-
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">num</span><span class="p">);</span><span class="w">  </span><span class="c1">// undefined (private한 변수는 외부로 노출되지 않음)</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">increase</span><span class="p">());</span><span class="w">  </span><span class="c1">// 1</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Counter</span><span class="p">.</span><span class="nx">decrease</span><span class="p">());</span><span class="w">  </span><span class="c1">// 0</span>
+<span class="c1">// 일반 객체는 prototype 프로퍼티를 갖지 않는다.</span>
+<span class="p">({}).</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;prototype&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// false</span>
 </pre></div>
 </div>
-<p>위 IIFE는, 외부에 노출하고픈 변수나 함수를 담은 객체를 반환하는 모듈 패턴을 보여주는 예제다.<br>
-모듈 패턴은 자바스크립트만의 강력한 클로저를 기반으로 동작하는데, 클로저는 24장 ‘클로저’에서 자세히 배워보자.</p>
-</section>
-<section id="es6">
-<h3>3-4. ES6 모듈<a class="headerlink" href="#es6" title="Link to this heading">#</a></h3>
-<p>ES6 모듈은, <strong>파일 자체의 독자적인 모듈 스코프를 제공</strong>하기 때문에<br>
-ES6 모듈 내에서 <code class="docutils literal notranslate"><span class="pre">var</span></code> 키워드로 선언한 변수는 <strong>더 이상 전역 변수가 아니게 된다.</strong></p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;lib.mjs&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.mjs&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</pre></div>
-</div>
-<p>위처럼 <code class="docutils literal notranslate"><span class="pre">script</span></code> 태그에 <code class="docutils literal notranslate"><span class="pre">type=&quot;module&quot;</span></code> 어트리뷰트만 추가하면, 로드된 자바스크립트 파일은 모듈이 된다.<br>
-(모듈의 파일 확장자는 <code class="docutils literal notranslate"><span class="pre">mjs</span></code>를 권장한다.)</p>
-<p>ES6 모듈은 모던 브라우저(크롬 61, 파이어폭스 60, 사파리 10.1, 엣지 16 이상 등)에서는 사용할 수 있지만,<br>
-트랜스파일링이나 번들링이 필요하며, 게다가 구형 브라우저에는 동작하지 않기 때문에<br>
-아직까지는 ES6 모듈보다는 Webpack 등 모듈 번들러를 사용하는 것이 일반적이다.<br>
-이와 관련해 더 자세한 내용은 추후 48장 ‘모듈’과 49장 ‘Babel과 Webpack을 이용한 ES6+/ES.NEXT 개발 환경 구축’에서 살펴보자.</p>
 <p>끝.</p>
 </section>
 </section>
@@ -625,24 +582,6 @@ ES6 모듈 내에서 <code class="docutils literal notranslate"><span class="pre
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="chapter_12.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Chapter 12 - 함수</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="chapter_15.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chapter 15 - <code class="docutils literal notranslate"><span class="pre">let</span></code>, <code class="docutils literal notranslate"><span class="pre">const</span></code> 키워드와 블록 레벨 스코프</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -659,17 +598,14 @@ ES6 모듈 내에서 <code class="docutils literal notranslate"><span class="pre
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 변수의 생명 주기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1-1. 지역 변수의 생명 주기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1-2. 전역 변수의 생명 주기</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2. 전역 변수의 문제점</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3. 전역 변수를 덜 쓰는 법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iife">3-1. IIFE: 즉시 실행 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3-2. 네임스페이스 객체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3-3. 모듈 패턴</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#es6">3-4. ES6 모듈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 일급 객체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2. 함수 객체의 프로퍼티</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments">2-1. <code class="docutils literal notranslate"><span class="pre">arguments</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caller">2-2. <code class="docutils literal notranslate"><span class="pre">caller</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#length">2-3. <code class="docutils literal notranslate"><span class="pre">length</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#name">2-4. <code class="docutils literal notranslate"><span class="pre">name</span></code> 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proto">2-5. <code class="docutils literal notranslate"><span class="pre">__proto__</span></code> 접근자 프로퍼티</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prototype">2-6. <code class="docutils literal notranslate"><span class="pre">prototype</span></code> 프로퍼티</a></li>
 </ul>
 </li>
 </ul>
