@@ -22,6 +22,7 @@ parts:
   - file: docs/chapter_16
   - file: docs/chapter_17
   - file: docs/chapter_18
+  - file: docs/chapter_19
 - caption: 개인 공간
   chapters:
   - file: 공희재/main
