@@ -1,0 +1,934 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Chapter 47 - 에러 처리 &#8212; 스터디</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '이용우/chapter_47';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 48 - 모듈" href="chapter_48.html" />
+    <link rel="prev" title="Chapter 46 - 제너레이터와 async/await" href="chapter_46.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">스터디</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_04.html">Chapter 04 - 변수</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_05.html">Chapter 05 - 표현식과 문</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_06.html">Chapter 06 - 데이터 타입</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_07.html">Chapter 07 - 연산자</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_08.html">Chapter 08 - 제어문</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_09.html">Chapter 09 - 타입 변환과 단축 평가</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_10.html">Chapter 10 - 객체 리터럴</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_11.html">Chapter 11 - 원시 값과 객체의 비교</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_12.html">Chapter 12 - 함수</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_14.html">Chapter 14 - 전역 변수의 문제점</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_15.html">Chapter 15 - let, const 키워드와 블록 레벨 스코프</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_16.html">Chapter 16 - 프로퍼티 어트리뷰트</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_17.html">Chapter 17 - 생성자 함수에 의한 객체 생성</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_18.html">Chapter 18 - 함수와 일급 객체</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_19.html">Chapter 19 - 프로토타입</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_20.html">Chapter 20 - strict mode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_21.html">Chapter 21 - 빌트인 객체</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docs/chapter_22.html">Chapter 22 - <code class="docutils literal notranslate"><span class="pre">this</span></code></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">개인 공간</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/main.html">공희재</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_04.html">Chapter 04 - 변수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_05.html">Chapter 05 - 표현식과 문</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_06.html">Chapter 06 - 데이터 타입</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_07.html">Chapter 07 - 연산자</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_08.html">Chapter 08 - 제어문</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_09.html">Chapter 09 - 타입 변환과 단축 평가</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_10.html">Chapter 10 - 객체 리터럴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_11.html">Chapter 11 - 원시 값과 객체의 비교</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_12.html">Chapter 12 - 함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_14.html">Chapter 14 - 전역 변수의 문제점</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_15.html">Chapter 15 - <code class="docutils literal notranslate"><span class="pre">let</span></code>, <code class="docutils literal notranslate"><span class="pre">const</span></code> 키워드와 블록 레벨 스코프</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_17.html">Chapter 17 - 생성자 함수에 의한 객체 생성</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_18.html">Chapter 18 - 함수와 일급 객체</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_20.html">Chapter 20 - strict mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_21.html">Chapter 21 - 빌트인 객체</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_22.html">Chapter 22 - <code class="docutils literal notranslate"><span class="pre">this</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B3%B5%ED%9D%AC%EC%9E%AC/chapter_24.html">Chapter 24 - Closure(클로저)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../%EA%B9%80%ED%98%84%EC%9A%B0/main.html">김현우</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%EA%B9%80%ED%98%84%EC%9A%B0/chapter_04.html">Chapter 04 - 변수</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="main.html">이용우</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter_04.html">Chapter 04 - 변수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_05.html">Chapter 05 - 표현식과 문</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_06.html">Chapter 06 - 데이터 타입</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_07.html">Chapter 07 - 연산자</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_08.html">Chapter 08 - 제어문</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_09.html">Chapter 09 - 타입 변환과 단축 평가</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_10.html">Chapter 10 - 객체 리터럴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_11.html">Chapter 11 - 원시 값과 객체의 비교</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_12.html">Chapter 12 - 함수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_14.html">Chapter 14 - 전역 변수의 문제점</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_15.html">Chapter 15 - let, const 키워드와 블록 레벨 스코프</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_16.html">Chapter 16 - 프로퍼티 어트리뷰트</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_17.html">Chapter 17 - 생성자 함수에 의한 객체 생성</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_18.html">Chapter 18 - 함수와 일급 객체</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter_19.html">Chapter 19 - 프로토타입</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_20.html">Chapter 20 - strict mode</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_21.html">Chapter 21 - 빌트인 객체</a></li>
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_22.html">Chapter 22 - this</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_23.html">Chapter 23 - 실행 컨텍스트</a></li>
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_24.html">Chapter 24 - 클로저</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_25.html">Chapter 25 - 클래스</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_26.html">Chapter 26 - ES6 함수의 추가 기능</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_27.html">Chapter 27 - 배열</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_28.html">Chapter 28 - Number</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_29.html">Chapter 29 - Math</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_30.html">Chapter 30 - Date</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_31.html">Chapter 31 - RegExp</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_32.html">Chapter 32 - String</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_33.html">Chapter 33 - Symbol</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_34.html">chapter 34 - 이터러블</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_35.html">chapter 35 - 스프레드 문법</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_36.html">Chapter 36 - 디스트럭처링 할당</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_37.html">Chapter 37 - Set과 Map</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_38.html">Chapter 38 - 브라우저의 렌더링 과정</a></li>
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_39.html">Chapter 39 - DOM</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_40.html">Chapter 40 - 이벤트</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_41.html">Chapter 41 - 타이머</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_42.html">Chapter 42 - 비동기 프로그래밍</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_43.html">Chapter 43 - Ajax</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_44.html">Chapter 44 - REST API</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_45.html">Chapter 45 - 프로피스</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_46.html">Chapter 46 - 제너레이터와 async/await</a></li>
+
+
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Chapter 47 - 에러 처리</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_48.html">Chapter 48 - 모듈</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="chapter_49.html">Chapter 49 - Babel과 Webpack을 이용한 ES6+/ES.NEXT 개발 환경 구축</a></li>
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ahnlab-220/jupyter-book-template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ahnlab-220/jupyter-book-template/issues/new?title=Issue%20on%20page%20%2F이용우/chapter_47.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/이용우/chapter_47.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Chapter 47 - 에러 처리</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 47 - 에러 처리</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-catch-finally">try .. catch … finally</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#error">Error 객체</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#throw">throw 문</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">에러의 전파</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="chapter-47">
+<h1>Chapter 47 - 에러 처리<a class="headerlink" href="#chapter-47" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">catch</span></code> 문을 사용해 발생한 에러에 적절하게 대응하면 프로그램이 강제 종료되지 않고<br />
+계속해서 코드를 실행시킬 수 있다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[Start&#39;</span><span class="p">);</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="p">();</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>직접적으로 에러를 발생시키지 않는 예외(exception)적인 상황이 발생할 수도 있다.<br />
+예외적인 상황에 적절하게 대응하지 않으면 에러로 이어질 가능성이 크다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// DOM에 button 요소가 존재하지 않으면 querySelector 메소드는 에러를 발생시키지 않고 null을 반환한다.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">$button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+<span class="nx">$button</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// TypeError: Cannot read property &#39;classList&#39; of null</span>
+</pre></div>
+</div>
+<p>위 예제의 <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> 메소드는 인수로 전달한 문자열이 CSS 선택자 문법에 맞지 않는 경우 에러를 발생시킨다.</p>
+<br>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">$elem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#1&#39;</span><span class="p">);</span>
+<span class="c1">// DOMException: Failed to execute &#39;querySelector&#39; on &#39;Document&#39;: &#39;#1&#39; is not a valid selector.</span>
+</pre></div>
+</div>
+<br>
+<p>하지만 <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> 메소드는 인수로 전달한 CSS 선택자 문자열로 DOM에서 요소 노드를 찾을 수 없는 경우 에러를 발생시키지 않고 <code class="docutils literal notranslate"><span class="pre">null</span></code>을 반환한다.<br />
+이때 <code class="docutils literal notranslate"><span class="pre">if</span></code> 문으로 <code class="docutils literal notranslate"><span class="pre">querySelector</span></code> 메소드의 반환값을 확인하거나 단축 평가 또는 옵셔널 체이닝 연산자(<code class="docutils literal notranslate"><span class="pre">?.</span></code>)를 사용하지 않으면<br />
+다음 처리에서 에러로 이어질 가능성이 높아진다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// DOM에 button 요소가 존재하지 않는 경우 querySelector 메소드는 에러를 발생시키지 않고 null을 반환한다.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">$button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1">// null</span>
+<span class="nx">$button</span><span class="o">?</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;disabled&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<br>
+<p>이와 같이 에러나 예외적인 상황에 대응하지 않으면 프로그램은 강제 종료될 것이다.<br />
+에러나 예외적인 상황은 너무 다양하기 때문에 아무런 조치 없이 프로그램이 강제 종료된다면 원인 파악이 어려워 대응이 힘들다.</p>
+<p><br><br></p>
+</section>
+<section id="try-catch-finally">
+<h1>try .. catch … finally<a class="headerlink" href="#try-catch-finally" title="Link to this heading">#</a></h1>
+<p>기본적으로 예외 처리를 구현하는 방법은 크게 두 가지가 있다.<br />
+<code class="docutils literal notranslate"><span class="pre">querySelector</span></code>나 <code class="docutils literal notranslate"><span class="pre">Array#find</span></code> 메소드처럼 예외적인 상황이 발생하면 반환하는 값(<code class="docutils literal notranslate"><span class="pre">null</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">-1</span></code>)을 <code class="docutils literal notranslate"><span class="pre">if</span></code>문이나<br />
+단축 평가 또는 옵셔널 체이닝 연산자를 통해 확인해서 처리하는 방법과<br />
+에러 처리 코드를 미리 등록해 두고 에러가 발생하면 에러 처리 코드로 점프하도록 하는 방법이 있다.</p>
+<br>
+<p><code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">catch</span> <span class="pre">...</span> <span class="pre">finally</span></code> 문은 두 번째 방법이다.<br />
+일반적으로 이 방법을 에러 처리(error handling)라고 한다.<br />
+<code class="docutils literal notranslate"><span class="pre">try</span> <span class="pre">...</span> <span class="pre">catch</span> <span class="pre">...</span> <span class="pre">finally</span></code> 문은 다음과 같이 3개의 코드 블록으로 구성된다.<br />
+<code class="docutils literal notranslate"><span class="pre">finally</span></code> 문은 불필요하다면 생략 가능하다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">catch</span></code> 문도 생략 가능하지만 <code class="docutils literal notranslate"><span class="pre">catch</span></code> 문이 없는 <code class="docutils literal notranslate"><span class="pre">try</span></code> 문은 의미가 없으므로 생략하지 않는다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 실행할 코드 (에러가 발생할 가능성이 있는 코드)</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// try 코드 블록에서 에러가 발생하면 이 코드 블록의 코드가 실행된다.</span>
+<span class="w">    </span><span class="c1">// err에는 try 코드 블록에서 발생한 Error 객체가 전달된다.</span>
+<span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 에러 발생과 상관없이 반드시 한 번 실행된다.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="error">
+<h1>Error 객체<a class="headerlink" href="#error" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Error</span></code> 생성자 함수는 에러 객체를 생성한다.<br />
+<code class="docutils literal notranslate"><span class="pre">Error</span></code> 생성자 함수에는 에러를 상세히 설명하는 에러 메시지를 인수로 전달할 수 있다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;invalid&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Error</span></code> 생성자 함수가 생성한 에러 객체는 <code class="docutils literal notranslate"><span class="pre">message</span></code> 프로퍼티와 <code class="docutils literal notranslate"><span class="pre">stack</span></code> 프로퍼티를 갖는다.<br />
+<code class="docutils literal notranslate"><span class="pre">message</span></code> 프로퍼티의 값은 <code class="docutils literal notranslate"><span class="pre">Error</span></code> 생성자 함수에 인수로 전달한 에러 메시지이고<br />
+<code class="docutils literal notranslate"><span class="pre">stack</span></code> 프로퍼티의 값은 에러를 발생시킨 콜 스택의 호출 정보를 나타내는 문자열이며 디버깅 목적으로 사용한다.</p>
+<p>자바스크립트는 Error 생성자 함수를 포함해 7가지의 에러 객체를 생성할 수 있는 Error 생성자 함수를 제공한다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>생성자 함수</p></th>
+<th class="head text-center"><p>인스턴스</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>Error</p></td>
+<td class="text-center"><p>일반적 에러 객체</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>SyntaxError</p></td>
+<td class="text-center"><p>자바스크립트 문법에 맞지 않는 문을 해석할 때 발생하는 에러 객체</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>ReferenceError</p></td>
+<td class="text-center"><p>참조할 수 없는 식별자를 참조했을 때 발생하는 에러 객체</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>TypeError</p></td>
+<td class="text-center"><p>피연산자 또는 인수의 데이터 타입이 유효하지 않을 때 발생하는 에러 객체</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>RangeError</p></td>
+<td class="text-center"><p>숫자값의 허용 범위를 벗어났을 때 발생하는 에러 객체</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>URIError</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">encodeURI</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">decodeURI</span></code> 함수에 부적절한 인수를 전달했을 때 발생하는 에러 객체</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>EvalError</p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">eval</span></code> 함수에서 발생하는 에러 객체</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br><br></p>
+</section>
+<section id="throw">
+<h1>throw 문<a class="headerlink" href="#throw" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Error</span></code> 생성자 함수로 에러 객체를 생성한다고 에러가 발생하는 것은 아니다.</p>
+<blockquote>
+<div><p>즉, 에러 객체 생성과 에러 발생은 그 의미가 다르다.</p>
+</div></blockquote>
+<br>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 에러 객체를 생성한다고 에러가 발생하는 것은 아니다.</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;something wrong&#39;</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>에러를 발생시키려면 try 코드 블록에서 <code class="docutils literal notranslate"><span class="pre">throw</span></code> 문으로 에러 객체를 던져야 한다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span><span class="w"> </span><span class="nx">표현식</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">throw</span></code> 문의 표현식은 어떤 값이라도 상관없지만 일반적으로 에러 객체를 지정한다.<br />
+에러를 던지면 <code class="docutils literal notranslate"><span class="pre">catch</span></code> 문의 에러 변수가 생성되고 던져진 에러 객체가 할당된다.<br />
+그리고 <code class="docutils literal notranslate"><span class="pre">catch</span></code> 코드 블록이 실행되기 시작한다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 에러 객체를 던지면 catch 코드 블록이 실행되기 시작한다.</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;something wrong&#39;</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<br>
+<p>예를 들어, 외부에서 전달받은 콜백 함수를 n번만큼 반복 호출하는 <code class="docutils literal notranslate"><span class="pre">repeat</span></code> gkatnfmf rngusgoqhwk.</p>
+<p><code class="docutils literal notranslate"><span class="pre">repeat</span></code> 함수는 두 번째 인수로 반드시 콜백 함수를 전달받아야 한다.<br />
+만약 두 번째 인수가 아니면 <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> 에러를 발생시켜보자.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// 외부에서 전달받은 콜백 함수를 n번만큼 반복 호출한다.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">repeat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">f</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 매개변수 f에 전달된 인수가 함수가 아니면 TypeError를 발생시킨다.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;function&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;f must be a function&#39;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">f</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span><span class="w">  </span><span class="c1">// i를 전달하면서 f를 호출</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">repeat</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2번째 인수가 함수가 아니므로 TypeError가 발생(throw)한다.</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// TypeError: f must be a function</span>
+</pre></div>
+</div>
+<p><br><br></p>
+</section>
+<section id="id1">
+<h1>에러의 전파<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>에러는 호출자(<code class="docutils literal notranslate"><span class="pre">caller</span></code>) 방향으로 전파된다.<br />
+즉, 콜 스택의 아래 방향(실행 중인 실행 컨텍스트가 Push되기 직전에 Push된 실행 컨텍스트 방향)으로 전파된다.</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;foo에서 발생한 에러&#39;</span><span class="p">);</span><span class="w">   </span><span class="c1">// (4)</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">foo</span><span class="p">();</span><span class="w">   </span><span class="c1">// (3)</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">baz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">bar</span><span class="p">();</span><span class="w">   </span><span class="c1">// (2)</span>
+<span class="p">};</span>
+
+<span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">baz</span><span class="p">();</span><span class="w">   </span><span class="c1">// (1)</span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(1)에서 <code class="docutils literal notranslate"><span class="pre">baz</span></code> 함수를 호출하면 (2)에서 <code class="docutils literal notranslate"><span class="pre">bar</span></code> 함수가 호출되고 (3)에서 <code class="docutils literal notranslate"><span class="pre">foo</span></code>함수는 (4)에서 에러를 <code class="docutils literal notranslate"><span class="pre">throw</span></code> 한다.<br />
+이때 <code class="docutils literal notranslate"><span class="pre">foo</span></code> 함수가 <code class="docutils literal notranslate"><span class="pre">throw</span></code>한 에러는 다음과 같이 호출자에게 전파되어 전역에서 캐치된다.</p>
+<img src="https://github.com/user-attachments/assets/9052a730-cd6c-4394-89f9-61fb4265a773" >
+<p>이처럼 <code class="docutils literal notranslate"><span class="pre">throw</span></code>된 에러를 캐치하지 않으면 호출자 방향으로 전파된다.<br />
+이때 throw된 에러를 캐지하여 적절히 대응하면 프로그램을 강제 종료시키지 않고 코드의 실행 흐름을 복구할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">throw</span></code>된 에러를 어디에서도 캐치하지 않으면 프로그램은 강제 종료된다.</p>
+<p><br><br></p>
+<p>비동기 함수나 프로미스 후속 처리 메소드의 콜백 함수는 호출자가 없다.</p>
+<blockquote>
+<div><p>테스크 큐나 마이크로테스크 큐에 일시 저장되었다가 콜 스택이 비면 이벤트 루프에 의해 콜 스택으로 Push되어 시랳ㅇ된다.</p>
+</div></blockquote>
+<p>이때 콜 스택에 푸시된 콜백 함수의 실행 컨텍스트는 콜 스택의 가장 하부에 존재하게 된다.<br />
+따라서 에러를 전달할 호출자가 존재하지 않는다.</p>
+<p><br><br></p>
+<p>끝.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./이용우"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter_46.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chapter 46 - 제너레이터와 async/await</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter_48.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Chapter 48 - 모듈</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Chapter 47 - 에러 처리</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#try-catch-finally">try .. catch … finally</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#error">Error 객체</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#throw">throw 문</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">에러의 전파</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ahnlab-220
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
